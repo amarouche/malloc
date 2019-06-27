@@ -1,0 +1,12 @@
+Les étapes utilisées:
+
+- Premièremen on set une varaible 'position' en global pour stocker la première position du sbrk(0) afin de parcourir à partir de cette position.
+- Pour un première appel de malloc on va étendre le tas de la taille demandée (size_t size)
+- Pour x appel de malloc on parcours le tas à partir de la position enregistré au début pour chercher un block libre.
+	* Si on trouve un block libre on alloue de la mémoire selon la taille demandée uniquement c'est à dire si le block est plus grand que la taile demandée on découpe et on crée un autre block libre pour une futur allocation.
+	* Si on trouve pas un block libre on étends de le tas pour allouer de la mémoire en utilisant la fonction sbrk(size)
+- Free:
+  dans notre structure on a ajouté deux variable:
+   * 'allocated': afin de vérifié si le block il est libre ou pas
+   * 'magic_number': Pour vérifier si le block a été alloué par notre programme malloc ou pas,
+  Enfin si les conditions sont vrais on met la variable allocated à 0 pour pouvoir allouer ce block dans les futur appels de malloc.
